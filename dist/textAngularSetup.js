@@ -442,9 +442,6 @@ angular.module('textAngularSetup', [])
     // You can disable this check by setting taOptions.textAngularSanitize == false
     var gv = {}; $sanitize('', gv);
     /* istanbul ignore next, throws error */
-    if ((taOptions.forceTextAngularSanitize===true) && (gv.version !== 'taSanitize')) {
-        throw angular.$$minErr('textAngular')("textAngularSetup", "The textAngular-sanitize provider has been replaced by another -- have you included angular-sanitize by mistake?");
-    }
     taRegisterTool("html", {
         iconclass: 'fa fa-code',
         tooltiptext: taTranslations.html.tooltip,

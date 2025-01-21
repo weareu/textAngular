@@ -458,9 +458,6 @@ angular.module('textAngularSetup', [])
     // You can disable this check by setting taOptions.textAngularSanitize == false
     var gv = {}; $sanitize('', gv);
     /* istanbul ignore next, throws error */
-    if ((taOptions.forceTextAngularSanitize===true) && (gv.version !== 'taSanitize')) {
-        throw angular.$$minErr('textAngular')("textAngularSetup", "The textAngular-sanitize provider has been replaced by another -- have you included angular-sanitize by mistake?");
-    }
     taRegisterTool("html", {
         iconclass: 'fa fa-code',
         tooltiptext: taTranslations.html.tooltip,
@@ -1032,7 +1029,7 @@ angular.module('textAngularSetup', [])
 @license textAngular
 Author : Austin Anderson
 License : 2013 MIT
-Version 1.5.17
+Version 1.5.18
 
 See README.md or https://github.com/fraywing/textAngular/wiki for requirements and use.
 */
@@ -1043,7 +1040,7 @@ Commonjs package manager support (eg componentjs).
 
 
 "use strict";// NOTE: textAngularVersion must match the Gruntfile.js 'setVersion' task.... and have format v/d+./d+./d+
-var textAngularVersion = 'v1.5.17';   // This is automatically updated during the build process to the current release!
+var textAngularVersion = 'v1.5.18';   // This is automatically updated during the build process to the current release!
 
 
 // IE version detection - http://stackoverflow.com/questions/4169160/javascript-ie-detection-why-not-use-simple-conditional-comments
