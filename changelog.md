@@ -1,3 +1,8 @@
+<a name="1.5.17"></a>
+## [1.5.17](https://github.com/fraywing/textAngular/compare/v1.5.16...v1.5.17) (2025-01-21)
+
+
+
 <a name="1.5.16"></a>
 ## [1.5.16](https://github.com/fraywing/textAngular/compare/v1.5.15...v1.5.16) (2016-12-05)
 
