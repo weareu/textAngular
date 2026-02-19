@@ -2214,6 +2214,13 @@ angular.module('textAngular.taBind', ['textAngular.factories', 'textAngular.DOM'
                 }else{
                     // all the code specific to contenteditable divs
                     var _processingPaste = false;
+                    // Security: strip on* event handler attributes from HTML to prevent XSS
+                    // This must be done BEFORE creating DOM elements, as browsers execute
+                    // event handlers immediately when parsing HTML into the DOM.
+                    var _stripEventHandlers = function(html) {
+                        if (!html) return html;
+                        return html.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, '');
+                    };
                     /* istanbul ignore next: phantom js cannot test this for some reason */
                     var processpaste = function(text) {
                        var _isOneNote = text!==undefined? text.match(/content=["']*OneNote.File/i): false;
@@ -2226,6 +2233,7 @@ angular.module('textAngular.taBind', ['textAngular.factories', 'textAngular.DOM'
                                 if(!textFragment) textFragment = text;
                                 else textFragment = textFragment[1];
                                 textFragment = textFragment.replace(/<o:p>[\s\S]*?<\/o:p>/ig, '').replace(/class=(["']|)MsoNormal(["']|)/ig, '');
+                                textFragment = _stripEventHandlers(textFragment);
                                 var dom = angular.element("<div>" + textFragment + "</div>");
                                 var targetDom = angular.element("<div></div>");
                                 var _list = {
@@ -2340,7 +2348,7 @@ angular.module('textAngular.taBind', ['textAngular.factories', 'textAngular.DOM'
                                 if(text.match(/<[^>]*?(ta-bind)[^>]*?>/)){
                                     // entire text-angular or ta-bind has been pasted, REMOVE AT ONCE!!
                                     if(text.match(/<[^>]*?(text-angular)[^>]*?>/)){
-                                        var _el = angular.element('<div>' + text + '</div>');
+                                        var _el = angular.element('<div>' + _stripEventHandlers(text) + '</div>');
                                         _el.find('textarea').remove();
                                         for(var _b = 0; _b < binds.length; _b++){
                                             var _target = binds[_b][0].parentNode.parentNode;

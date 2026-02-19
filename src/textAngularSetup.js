@@ -384,7 +384,10 @@ angular.module('textAngularSetup', [])
             var container = editorScope.displayElements.popoverContainer;
             container.empty();
             container.css('line-height', '28px');
-            var link = angular.element('<a href="' + $element.attr('href') + '" target="_blank">' + $element.attr('href') + '</a>');
+            var link = angular.element('<a></a>');
+            link.attr('href', $element.attr('href'));
+            link.attr('target', '_blank');
+            link.text($element.attr('href'));
             link.css({
                 'display': 'inline-block',
                 'max-width': '200px',
@@ -399,7 +402,7 @@ angular.module('textAngularSetup', [])
             reLinkButton.on('click', function(event){
                 event.preventDefault();
                 var urlLink = $window.prompt(taTranslations.insertLink.dialogPrompt, $element.attr('href'));
-                if(urlLink && urlLink !== '' && urlLink !== 'http://'){
+                if(urlLink && urlLink !== '' && urlLink !== 'http://' && urlLink.toLowerCase().indexOf('javascript') === -1){
                     $element.attr('href', urlLink);
                     editorScope.updateTaBindtaTextElement();
                 }
